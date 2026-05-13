@@ -12,7 +12,7 @@ def register(request):
     if request.user.is_authenticated:
         return redirect('posts:home')
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = UserRegisterForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             login(request, user)
