@@ -13,8 +13,12 @@ env/
 # Django
 *.log
 db.sqlite3
-media/
 staticfiles/
+
+# Media — ignore user uploads but keep sample fixtures images
+media/
+!media/posts/
+!media/avatars/
 
 # Secrets / local config
 config/local_settings.py
