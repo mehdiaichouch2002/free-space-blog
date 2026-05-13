@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ post.title }} — Free Space{% endblock %}
+
+{% block extra_css %}
+<style>
+  .reading-progress { position:fixed;top:4.5rem;left:0;height:3px;background:var(--color-primary);z-index:9;width:0;transition:width 0.1s linear; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="reading-progress" id="readingProgress"></div>
+
+<section class="singlepost">
+  <div class="singlepost__container">
+
+    <div class="flex flex-wrap gap-2 mb-3">
+      {% if post.category %}
+        <a href="{% url 'posts:category' post.category.slug %}" class="category__button">{{ post.category.name }}</a>
+      {% endif %}
+      {% for tag in post.tags.all %}
+        <span class="px-2 py-1 bg-c-card-dk rounded text-xs text-c-white/70">#{{ tag.name }}</span>
+      {% endfor %}
+    </div>
+
+    <h2 class="text-c-white text-2xl md:text-3xl font-bold leading-snug">{{ post.title }}</h2>
+
+    <div class="post__author mt-4">
+      <div class="post__author-avatar">
+        {% if post.author.avatar %}<img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}">
+        {% else %}<div class="avatar-placeholder"></div>{% endif %}
+      </div>
+      <div>
+        <p class="text-c-white text-sm font-medium">By {{ post.author.full_name }}</p>
+        <small class="text-c-white/40 text-xs">{{ post.created_at|date:"M d, Y - H:i" }}</small>
+        <small class="post__time-ago text-xs">&nbsp;{{ post.created_at|timesince }} ago</small>
+        <div class="flex flex-wrap gap-3 mt-1">
+          <span class="text-xs text-c-white/50 flex items-center gap-1"><i class="uil uil-clock"></i> {{ post.reading_time }} min read</span>
+          <span class="text-xs text-c-white/50 flex items-center gap-1"><i class="uil uil-eye"></i> {{ post.views_count }} views</span>
+        </div>
+      </div>
+    </div>
+
+    {% if post.featured_image %}
+    <div class="singlepost__thumbnail">
+      <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="rounded-lg w-full">
+    </div>
+    {% endif %}
+
+    <div class="mt-4 leading-[1.9] whitespace-pre-wrap text-c-white/80">{{ post.content }}</div>
+
+    <div class="flex flex-wrap items-center gap-4 mt-8 pt-6 border-t border-c-card">
+      {% if user.is_authenticated %}
+        <button id="like-btn" class="btn {% if is_liked %}danger{% endif %}" data-slug="{{ post.slug }}">
+          <i class="uil uil-heart{% if is_liked %}-alt{% endif %}"></i>
+          <span id="like-count">{{ post.like_count }}</span> Likes
+        </button>
+      {% else %}
+        <span class="text-sm text-c-white/50 flex items-center gap-1"><i class="uil uil-heart"></i> {{ post.like_count }} Likes</span>
+      {% endif %}
+      {% if user == post.author %}
+        <a href="{% url 'posts:edit' post.slug %}" class="btn sm">Edit</a>
+        <a href="{% url 'posts:delete' post.slug %}" class="btn sm danger">Delete</a>
+      {% endif %}
+    </div>
+
+    <div class="comment__bar mt-8">
+      <button class="comment__btn">Show Comments <i class="uil uil-comment-download"></i></button>
+      <div class="allcomments__block">
+        {% for comment in comments %}
+        <div class="singlecomment__block">
+          <div class="flex gap-3 items-start">
+            <div class="avatar avatar-sm">
+              {% if comment.author.avatar %}<img class="avatar-img" src="{{ comment.author.avatar.url }}" alt="{{ comment.author.username }}">
+              {% else %}<div class="avatar-placeholder"></div>{% endif %}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-c-white text-sm font-semibold">{{ comment.author.full_name }}</p>
+              <small class="text-c-white/40 text-xs">{{ comment.created_at|date:"M d, Y - H:i" }}</small>
+              <small class="post__time-ago text-xs">&nbsp;{{ comment.created_at|timesince }} ago</small>
+              <div class="main__comment mt-2">{{ comment.content }}</div>
+              {% if user == comment.author or user.is_staff or user == post.author %}
+                <a href="{% url 'comments:delete' comment.pk %}" class="delete_btn" onclick="return confirm('Delete this comment?')">
+                  Delete <i class="uil uil-trash"></i>
+                </a>
+              {% endif %}
+
+              {% for reply in comment.replies.all %}
+              <div class="flex gap-3 mt-3 ml-4 pl-3 border-l-2 border-primary">
+                <div class="avatar avatar-sm">
+                  {% if reply.author.avatar %}<img class="avatar-img" src="{{ reply.author.avatar.url }}">
+                  {% else %}<div class="avatar-placeholder"></div>{% endif %}
+                </div>
+                <div class="flex-1">
+                  <p class="text-c-white text-sm font-semibold">{{ reply.author.full_name }}</p>
+                  <small class="text-c-white/40 text-xs">{{ reply.created_at|date:"M d, Y" }}</small>
+                  <div class="main__comment mt-2">{{ reply.content }}</div>
+                </div>
+              </div>
+              {% endfor %}
+
+              {% if user.is_authenticated %}
+              <details class="mt-2">
+                <summary class="cursor-pointer text-primary text-sm select-none">↩ Reply</summary>
+                <form method="post" action="{% url 'comments:add' post.slug %}" class="mt-2">
+                  {% csrf_token %}
+                  <input type="hidden" name="parent_id" value="{{ comment.pk }}">
+                  <div class="comment__bar-container">
+                    <div>
+                      <i class="uil uil-comments-alt"></i>
+                      <input type="text" required name="content" placeholder="Write a reply…">
+                      <button type="submit" class="btn sm"><i class="uil uil-comment-alt-lines"></i></button>
+                    </div>
+                  </div>
+                </form>
+              </details>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% empty %}
+          <p class="p-4 text-c-white/50">No comments yet. Be the first!</p>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+        <form action="{% url 'comments:add' post.slug %}" class="comment__bar-container" method="post">
+          {% csrf_token %}
+          <div>
+            <i class="uil uil-comments-alt"></i>
+            <input type="text" required name="content" placeholder="Leave a comment…">
+            <button type="submit" class="btn"><i class="uil uil-comment-alt-lines"></i></button>
+          </div>
+        </form>
+        {% else %}
+          <p class="p-4 text-c-white/50"><a href="{% url 'users:login' %}" class="text-primary">Sign in</a> to leave a comment.</p>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('like-btn')?.addEventListener('click', function() {
+  fetch("{% url 'likes:toggle' post.slug %}", {
+    method: 'POST',
+    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('like-count').textContent = data.count;
+    const btn = document.getElementById('like-btn');
+    const icon = btn.querySelector('i');
+    if (data.liked) { btn.classList.add('danger'); icon.className = 'uil uil-heart-alt'; }
+    else { btn.classList.remove('danger'); icon.className = 'uil uil-heart'; }
+  });
+});
+const bar = document.getElementById('readingProgress');
+if (bar) {
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (scrollTop / docHeight * 100) + '%';
+  });
+}
+</script>
+{% endblock %}

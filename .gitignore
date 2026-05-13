@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Django
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# Secrets / local config
+config/local_settings.py
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Presentation generator (keep the output files, not the script)
+generate_pptx.py
+generate_pptx_fr.py

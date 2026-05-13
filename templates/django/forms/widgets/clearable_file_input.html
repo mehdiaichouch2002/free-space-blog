@@ -1,0 +1,16 @@
+{% if widget.is_initial %}
+<div class="avatar-preview-wrap">
+  <img src="{{ widget.value.url }}" alt="Current avatar" class="avatar-preview-current" id="avatar-preview-img">
+  <label class="avatar-clear-label" for="{{ widget.checkbox_id }}">
+    <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"{% if widget.attrs.disabled %} disabled{% endif %}>
+    <span>Remove current image</span>
+  </label>
+</div>
+{% else %}
+<div class="avatar-preview-wrap no-image">
+  <div class="avatar-preview-placeholder" id="avatar-preview-img">
+    <i class="uil uil-image-plus"></i>
+  </div>
+</div>
+{% endif %}
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>

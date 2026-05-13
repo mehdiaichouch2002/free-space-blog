@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Delete Post — Free Space{% endblock %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center px-4">
+  <div class="bg-c-card rounded-xl p-8 w-full max-w-md text-center">
+    <h2 class="text-c-white text-2xl font-bold mb-4">Delete Post?</h2>
+    <p class="text-c-white/70 mb-6">Are you sure you want to delete <strong class="text-c-white">"{{ post.title }}"</strong>? This cannot be undone.</p>
+    <form method="post" class="flex-row justify-center gap-4">
+      {% csrf_token %}
+      <button type="submit" class="btn danger">Yes, Delete</button>
+      <a href="{% url 'posts:detail' post.slug %}" class="btn" style="background:var(--color-gray-700);">Cancel</a>
+    </form>
+  </div>
+</section>
+{% endblock %}

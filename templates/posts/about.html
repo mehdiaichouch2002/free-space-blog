@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About — Free Space{% endblock %}
+
+{% block content %}
+<section class="mt-20 py-16">
+  <div class="container">
+    <div class="text-center mb-12">
+      <h2 class="text-c-white text-3xl md:text-4xl font-bold">Meet Our Team</h2>
+      <p class="text-c-white/60 mt-3 max-w-2xl mx-auto leading-relaxed">We're a group of passionate bloggers dedicated to sharing our knowledge and experiences with the world.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      <div class="bg-primary rounded-xl p-8 text-center w-full max-w-xs">
+        <img src="{% static 'images/1678992392avatar13.jpg' %}" alt="Author 1" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-c-bg">
+        <h3 class="text-c-white text-xl font-bold">John Doe</h3>
+        <p class="text-c-white/70 italic text-sm mt-1">Founder &amp; CEO</p>
+        <p class="text-c-white/60 text-sm mt-3 leading-relaxed">Passionate about technology and sharing knowledge. Building communities one post at a time.</p>
+      </div>
+      <div class="bg-primary rounded-xl p-8 text-center w-full max-w-xs">
+        <img src="{% static 'images/1678986882profile.jpg' %}" alt="Author 2" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-c-bg">
+        <h3 class="text-c-white text-xl font-bold">Jane Smith</h3>
+        <p class="text-c-white/70 italic text-sm mt-1">Editor-in-Chief</p>
+        <p class="text-c-white/60 text-sm mt-3 leading-relaxed">Crafting compelling stories and making sure every word counts. Editor by day, blogger by night.</p>
+      </div>
+      <div class="bg-primary rounded-xl p-8 text-center w-full max-w-xs">
+        <img src="{% static 'images/1678986934avatar2.jpg' %}" alt="Author 3" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-c-bg">
+        <h3 class="text-c-white text-xl font-bold">Bob Johnson</h3>
+        <p class="text-c-white/70 italic text-sm mt-1">Contributor</p>
+        <p class="text-c-white/60 text-sm mt-3 leading-relaxed">Bringing fresh perspectives on web development, design, and the digital world.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

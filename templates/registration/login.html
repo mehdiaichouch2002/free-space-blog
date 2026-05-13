@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Sign In — Free Space{% endblock %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center px-4 py-20">
+  <div class="w-full max-w-md">
+    <div class="auth-card">
+
+      <div class="auth-logo"><i class="uil uil-rocket"></i></div>
+      <h2 class="text-c-white text-2xl font-bold text-center mb-1">Welcome back</h2>
+      <p class="text-c-white/50 text-sm text-center mb-6">Sign in to your Free Space account</p>
+
+      {% if form.errors %}
+        <div class="alert__message error mb-4"><p>Invalid username or password.</p></div>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="form__control">
+          <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">Username</label>
+          <div class="input-wrap">
+            <i class="uil uil-user input-icon"></i>
+            <input type="text" name="username" placeholder="Enter your username" required autofocus>
+          </div>
+        </div>
+
+        <div class="form__control">
+          <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">Password</label>
+          <div class="input-wrap">
+            <i class="uil uil-lock input-icon"></i>
+            <input type="password" name="password" placeholder="Enter your password" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn mt-2" style="width:100%;justify-content:center;display:flex;">
+          <i class="uil uil-signin mr-2"></i> Sign In
+        </button>
+      </form>
+
+      <hr class="form-divider">
+      <p class="text-center text-c-white/50 text-sm">
+        Don't have an account?
+        <a href="{% url 'users:register' %}" class="text-primary font-semibold hover:underline">Register here</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

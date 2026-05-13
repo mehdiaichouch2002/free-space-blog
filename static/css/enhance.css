@@ -1,0 +1,597 @@
+/* enhance.css — visual enhancements and modern UI layer */
+
+/* ── Toast notifications ── */
+.toast-stack {
+    position: fixed;
+    top: 5.5rem;
+    right: 1.25rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    max-width: 22rem;
+    width: calc(100vw - 2.5rem);
+    pointer-events: none;
+}
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem 0.9rem 1.1rem;
+    border-radius: 0.85rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+    pointer-events: all;
+    animation: toastIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.toast.toast--hiding {
+    opacity: 0;
+    transform: translateX(110%);
+}
+.toast--success {
+    background: rgba(0, 150, 90, 0.18);
+    border-color: rgba(0, 196, 118, 0.25);
+}
+.toast--error {
+    background: rgba(180, 10, 40, 0.18);
+    border-color: rgba(218, 15, 63, 0.28);
+}
+.toast__icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.toast--success .toast__icon { color: #00c476; }
+.toast--error   .toast__icon { color: #da0f3f; }
+.toast__msg {
+    flex: 1;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: rgba(242, 242, 254, 0.92);
+    font-weight: 500;
+}
+.toast__close {
+    background: none;
+    border: none;
+    padding: 0.2rem;
+    cursor: pointer;
+    color: rgba(242, 242, 254, 0.35);
+    font-size: 0.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 150ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+}
+.toast__close:hover {
+    color: rgba(242, 242, 254, 0.8);
+    background: rgba(242, 242, 254, 0.08);
+}
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(60px) scale(0.95); }
+    to   { opacity: 1; transform: translateX(0)   scale(1); }
+}
+@media (max-width: 480px) {
+    .toast-stack { right: 0.75rem; left: 0.75rem; width: auto; max-width: none; }
+}
+
+/* ── Misc ── */
+.post__time-ago { color: antiquewhite; }
+.reading-progress { position: fixed; top: 4.5rem; left: 0; height: 3px; background: var(--color-primary); z-index: 9; width: 0; transition: width 0.1s linear; }
+.post__featured-badge { position: absolute; top: 0.75rem; right: 0.75rem; background: var(--color-primary); color: var(--color-white); padding: 0.2rem 0.6rem; border-radius: 5rem; font-size: 0.72rem; font-weight: 600; }
+.reply__details summary { cursor: pointer; color: var(--color-primary); font-size: 0.85rem; user-select: none; }
+.form__error { color: var(--color-red); font-size: 0.8rem; margin-top: 0.15rem; }
+
+/* ── Glassmorphism navbar ── */
+nav {
+    background: rgba(108, 116, 220, 0.92) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(242, 242, 254, 0.1);
+}
+
+/* ── Gradient buttons ── */
+.btn {
+    background: linear-gradient(135deg, #7c85ef 0%, #5c67d4 100%) !important;
+    box-shadow: 0 2px 14px rgba(124, 133, 239, 0.35);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    width: auto;
+    border-radius: 0.6rem;
+}
+.btn:hover {
+    background: var(--color-white) !important;
+    color: var(--color-bg) !important;
+    box-shadow: 0 4px 20px rgba(242, 242, 254, 0.18);
+    transform: translateY(-2px);
+}
+.btn.danger {
+    background: linear-gradient(135deg, #da0f3f 0%, #a80930 100%) !important;
+    box-shadow: 0 2px 14px rgba(218, 15, 63, 0.35);
+}
+.btn.danger:hover {
+    background: var(--color-white) !important;
+    color: var(--color-bg) !important;
+}
+.btn.sm { padding: 0.3rem 0.8rem; font-size: 0.78rem; border-radius: 0.4rem; }
+
+/* ── Restore native checkbox/radio (global reset strips appearance) ── */
+input[type="checkbox"],
+input[type="radio"] {
+    appearance: auto !important;
+    -webkit-appearance: auto !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: inline-block !important;
+    accent-color: var(--color-primary);
+}
+
+/* ── Modern inputs — sizing + focus glow ── */
+input:not([type="file"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+textarea,
+select {
+    width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    padding: 0.85rem 1.1rem !important;
+    font-size: 0.95rem !important;
+    min-height: 3rem;
+    border: 1.5px solid rgba(242, 242, 254, 0.1) !important;
+    border-radius: 0.65rem !important;
+    background-color: rgba(242, 242, 254, 0.04) !important;
+    color: rgba(242, 242, 254, 0.9) !important;
+    transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+    outline: none !important;
+}
+
+textarea {
+    min-height: 7rem;
+    line-height: 1.65 !important;
+    padding: 0.9rem 1.1rem !important;
+}
+
+input:not([type="file"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):focus,
+textarea:focus,
+select:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(124, 133, 239, 0.18) !important;
+    background-color: rgba(30, 30, 102, 0.9) !important;
+}
+
+/* ── Input with leading icon ── */
+.input-wrap {
+    position: relative;
+    display: block;
+}
+.input-wrap .input-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(242, 242, 254, 0.38);
+    pointer-events: none;
+    font-size: 1.1rem;
+    z-index: 1;
+    line-height: 1;
+    width: 1.1rem;
+    text-align: center;
+}
+.input-wrap input:not([type="file"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+.input-wrap textarea {
+    padding-left: 3.25rem !important;
+}
+.input-wrap textarea {
+    padding-top: 0.9rem !important;
+}
+.input-wrap .input-icon.top {
+    top: 0.95rem;
+    transform: none;
+}
+
+/* ── Glass auth card ── */
+.auth-card {
+    background: linear-gradient(145deg, rgba(30, 30, 102, 0.85), rgba(15, 15, 62, 0.95));
+    border: 1px solid rgba(242, 242, 254, 0.07);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(242, 242, 254, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeSlideUp 0.4s ease both;
+}
+
+/* ── Glass form card ── */
+.form-card {
+    background: linear-gradient(145deg, rgba(30, 30, 102, 0.7), rgba(15, 15, 62, 0.85));
+    border: 1px solid rgba(242, 242, 254, 0.07);
+    border-radius: 1.25rem;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    animation: fadeSlideUp 0.35s ease both;
+}
+.form-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Auth icon header ── */
+.auth-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: linear-gradient(135deg, var(--color-primary), #5c67d4);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: var(--color-white);
+    margin: 0 auto 1.25rem;
+    box-shadow: 0 8px 24px rgba(124, 133, 239, 0.4);
+}
+
+/* ── Form divider ── */
+.form-divider {
+    border: none;
+    border-top: 1px solid rgba(242, 242, 254, 0.07);
+    margin: 1.5rem 0;
+}
+
+/* ── Featured slider thumbnail — consistent height regardless of image dimensions ── */
+.post__thumbnail {
+    height: 22rem;
+}
+.post__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* ── Post card image zoom + gradient overlay ── */
+.card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 12rem !important;
+    flex-shrink: 0;
+    background: #1e1e66;
+    display: block;
+}
+.card-img-wrap > img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    transition: transform 500ms ease;
+}
+.card-img-wrap:hover > img {
+    transform: scale(1.06);
+}
+.card-img-gradient {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 55%;
+    background: linear-gradient(to top, rgba(30, 30, 102, 0.9) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* ── Post card consistent layout ── */
+article.post {
+    display: flex;
+    flex-direction: column;
+}
+article.post > div:last-child {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Search bar focus ── */
+.search__bar-container:focus-within {
+    border: 1.5px solid var(--color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(124, 133, 239, 0.15);
+}
+
+/* ── Section heading accent ── */
+.heading-accent {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+.heading-accent::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2.5rem;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), #5c67d4);
+    border-radius: 2px;
+}
+
+/* ── Category button glow ── */
+.category__button {
+    box-shadow: 0 2px 8px rgba(124, 133, 239, 0.2);
+    transition: box-shadow 200ms ease, color 200ms ease;
+}
+.category__button:hover {
+    box-shadow: 0 4px 16px rgba(124, 133, 239, 0.4);
+}
+
+/* ── Singlepost container glass ── */
+.singlepost__container {
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Comment block ── */
+.singlecomment__block {
+    border: 1px solid rgba(242, 242, 254, 0.05);
+}
+
+/* ── Nav link hover underline ── */
+.nav__items > li > a:not(.btn) {
+    position: relative;
+    padding-bottom: 2px;
+}
+.nav__items > li > a:not(.btn)::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-white);
+    border-radius: 1px;
+    transition: width 200ms ease;
+}
+.nav__items > li > a:not(.btn):hover::after {
+    width: 100%;
+}
+
+/* ── Field component ── */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+.field__label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(242, 242, 254, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.1rem;
+}
+.field__optional {
+    font-size: 0.68rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: rgba(242, 242, 254, 0.28);
+}
+.field__hint {
+    font-size: 0.76rem;
+    color: rgba(242, 242, 254, 0.32);
+    line-height: 1.45;
+    margin-top: 0.15rem;
+}
+.toggle-card__title {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: rgba(242, 242, 254, 0.85);
+    line-height: 1.2;
+}
+.toggle-card__hint {
+    font-size: 0.75rem;
+    color: rgba(242, 242, 254, 0.38);
+    margin-top: 0.15rem;
+}
+
+/* ── Ghost / cancel button ── */
+.btn-ghost {
+    background: rgba(242, 242, 254, 0.06) !important;
+    box-shadow: none !important;
+    color: rgba(242, 242, 254, 0.55) !important;
+}
+.btn-ghost:hover {
+    background: rgba(242, 242, 254, 0.12) !important;
+    color: rgba(242, 242, 254, 0.85) !important;
+    transform: none;
+}
+
+/* ── Form divider ── */
+.form__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(242, 242, 254, 0.06);
+    margin-top: 0.5rem;
+}
+
+/* ── Custom select arrow ── */
+select {
+    appearance: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(242%2C242%2C254%2C0.4)' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    padding-right: 2.5rem !important;
+    cursor: pointer;
+}
+select option {
+    background-color: #1e1e66;
+    color: #f2f2fe;
+}
+
+/* ── Avatar / image preview ── */
+.avatar-preview-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+}
+.avatar-preview-current {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(124, 133, 239, 0.4);
+    flex-shrink: 0;
+}
+.avatar-preview-placeholder {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    border: 2px dashed rgba(242, 242, 254, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: rgba(242, 242, 254, 0.2);
+    flex-shrink: 0;
+}
+.avatar-clear-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    color: rgba(218, 15, 63, 0.75);
+    cursor: pointer;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid rgba(218, 15, 63, 0.25);
+    border-radius: 2rem;
+    transition: background 150ms ease, color 150ms ease;
+}
+.avatar-clear-label:hover {
+    background: rgba(218, 15, 63, 0.1);
+    color: #da0f3f;
+}
+.avatar-clear-label input[type="checkbox"] {
+    accent-color: #da0f3f;
+}
+
+/* ── File input ── */
+input[type="file"] {
+    padding: 0.8rem 1.1rem !important;
+    border: 1.5px dashed rgba(124, 133, 239, 0.35) !important;
+    border-radius: 0.65rem;
+    font-size: 0.88rem;
+    color: rgba(242, 242, 254, 0.45);
+    cursor: pointer;
+    background: rgba(124, 133, 239, 0.04) !important;
+    min-height: 3rem;
+}
+input[type="file"]::file-selector-button {
+    background: linear-gradient(135deg, #7c85ef, #5c67d4);
+    color: #f2f2fe;
+    border: none;
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 0.75rem;
+    transition: opacity 150ms ease;
+}
+input[type="file"]::file-selector-button:hover {
+    opacity: 0.82;
+}
+
+/* ── Tag / checkbox pill list ── */
+.tags-wrap ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0.75rem;
+    margin: 0;
+    background: rgba(242, 242, 254, 0.03);
+    border: 1.5px solid rgba(242, 242, 254, 0.08);
+    border-radius: 0.6rem;
+}
+.tags-wrap ul li { display: contents; }
+.tags-wrap ul li label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.8rem;
+    background: rgba(124, 133, 239, 0.08);
+    border: 1px solid rgba(124, 133, 239, 0.18);
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: rgba(242, 242, 254, 0.65);
+    user-select: none;
+    transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.tags-wrap ul li label:hover {
+    background: rgba(124, 133, 239, 0.18);
+    border-color: rgba(124, 133, 239, 0.4);
+    color: rgba(242, 242, 254, 0.9);
+}
+.tags-wrap ul li label:has(input[type="checkbox"]:checked) {
+    background: rgba(124, 133, 239, 0.28);
+    border-color: var(--color-primary);
+    color: #f2f2fe;
+}
+.tags-wrap ul li input[type="checkbox"] {
+    width: 0.8rem;
+    height: 0.8rem;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* ── Boolean / featured toggle card ── */
+.toggle-card {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    background: rgba(242, 242, 254, 0.03);
+    border: 1.5px solid rgba(242, 242, 254, 0.07);
+    border-radius: 0.6rem;
+    cursor: pointer;
+    transition: border-color 150ms ease, background 150ms ease;
+}
+.toggle-card:hover {
+    border-color: rgba(124, 133, 239, 0.3);
+    background: rgba(124, 133, 239, 0.05);
+}
+.toggle-card input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* ── Textarea resize handle ── */
+textarea { resize: vertical; }

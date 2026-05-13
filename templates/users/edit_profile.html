@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile — Free Space{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var fileInput = document.querySelector('input[type="file"][name="avatar"]');
+  if (!fileInput) return;
+  fileInput.addEventListener('change', function () {
+    var file = this.files[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var preview = document.getElementById('avatar-preview-img');
+      if (!preview) return;
+      if (preview.tagName === 'IMG') {
+        preview.src = e.target.result;
+      } else {
+        var img = document.createElement('img');
+        img.src = e.target.result;
+        img.id = 'avatar-preview-img';
+        img.alt = 'Preview';
+        img.className = 'avatar-preview-current';
+        preview.replaceWith(img);
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+})();
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="py-24 px-4">
+  <div class="container max-w-xl mx-auto">
+
+    <div class="flex items-center gap-3 mb-8">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center text-primary text-xl" style="background:rgba(124,133,239,.15)">
+        <i class="uil uil-user-circle"></i>
+      </div>
+      <div>
+        <h2 class="text-c-white text-2xl font-bold leading-none">Edit Profile</h2>
+        <p class="text-c-white/50 text-sm mt-0.5">Update your personal information</p>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <div class="alert__message error">
+            {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {% include "components/_field.html" with field=form.first_name icon="uil-user" %}
+          {% include "components/_field.html" with field=form.last_name icon="uil-user" %}
+        </div>
+
+        {% include "components/_field.html" with field=form.email icon="uil-envelope" %}
+
+        {% include "components/_field.html" with field=form.bio icon="uil-align-left" %}
+
+        {% include "components/_field.html" with field=form.website icon="uil-link" %}
+
+        {% include "components/_field.html" with field=form.avatar %}
+
+        <div class="form__footer">
+          <button type="submit" class="btn">
+            <i class="uil uil-check mr-1"></i> Save Changes
+          </button>
+          <a href="{% url 'users:profile' request.user.username %}" class="btn btn-ghost">
+            Cancel
+          </a>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

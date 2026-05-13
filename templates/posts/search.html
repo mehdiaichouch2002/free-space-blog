@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Search — Free Space{% endblock %}
+
+{% block content %}
+<section class="mt-24 mb-8">
+  <form action="{% url 'posts:search' %}" method="get" class="container">
+    <div class="search__bar-container mx-auto w-full max-w-md">
+      <div>
+        <i class="uil uil-search"></i>
+        <input type="search" name="search" placeholder="Search..." value="{{ search }}">
+        <button type="submit" class="btn sm">Go</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="posts">
+  <div class="container">
+    <div class="posts__container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      {% for post in posts %}
+        {% include "components/_post_card.html" with post=post only %}
+      {% empty %}
+        <div class="col-span-3">
+          <div class="empty__page">
+            <h2>{% if search %}No results for "{{ search }}"{% else %}Enter a search term.{% endif %}</h2>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

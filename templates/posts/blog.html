@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Blog — Free Space{% endblock %}
+
+{% block content %}
+<section class="mt-24 mb-8">
+  <form action="{% url 'posts:search' %}" method="get" class="container">
+    <div class="search__bar-container mx-auto w-full max-w-md">
+      <div>
+        <i class="uil uil-search"></i>
+        <input type="search" name="search" placeholder="Search posts..." value="{{ search }}">
+        <button type="submit" class="btn sm">Go</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="posts">
+  <div class="container">
+    <div class="posts__container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      {% for post in posts %}
+        {% include "components/_post_card.html" with post=post only %}
+      {% empty %}
+        <div class="empty__page col-span-3"><h2>No posts found.</h2></div>
+      {% endfor %}
+    </div>
+    <div class="text-center mb-12">
+      <button id="load-more" class="btn">Load more…</button>
+    </div>
+  </div>
+</section>
+
+<section class="border-t-2 border-c-card py-10">
+  <div class="container">
+    <div class="flex flex-wrap gap-3">
+      {% for cat in categories %}
+        <a href="{% url 'posts:category' cat.slug %}" class="category__button">{{ cat.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  var loadMoreBtn = document.getElementById('load-more');
+  var articles = document.querySelectorAll('.posts .post');
+  var numToShow = 9, numShown = 0;
+  function showMore() {
+    for (var i = numShown; i < numShown + numToShow; i++) {
+      if (articles[i]) articles[i].style.display = 'block';
+    }
+    numShown += numToShow;
+    if (numShown >= articles.length) loadMoreBtn.style.display = 'none';
+  }
+  showMore();
+  loadMoreBtn.addEventListener('click', showMore);
+</script>
+{% endblock %}

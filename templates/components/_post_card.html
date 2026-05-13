@@ -1,0 +1,45 @@
+{% load static %}
+<article class="post bg-c-card rounded-xl overflow-hidden hover:-translate-y-1.5 hover:shadow-xl" style="transition: transform 250ms ease, box-shadow 250ms ease; will-change: transform;">
+  <div class="card-img-wrap">
+    {% if post.featured_image %}
+      <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+    {% else %}
+      <div class="h-full bg-c-card-dk flex items-center justify-center text-5xl text-c-white/30">
+        <i class="uil uil-image-slash"></i>
+      </div>
+    {% endif %}
+    <div class="card-img-gradient"></div>
+    {% if post.is_featured %}
+      <span class="post__featured-badge"><i class="uil uil-star"></i> Featured</span>
+    {% endif %}
+  </div>
+  <div class="p-4 flex flex-col gap-2">
+    {% if post.category %}
+      <a href="{% url 'posts:category' post.category.slug %}" class="category__button self-start">{{ post.category.name }}</a>
+    {% endif %}
+    <h3 class="text-c-white font-semibold text-base leading-snug">
+      <a href="{% url 'posts:detail' post.slug %}" class="hover:text-primary transition-colors">{{ post.title }}</a>
+    </h3>
+    <p class="text-c-white/60 text-sm leading-relaxed line-clamp-3 flex-1">{{ post.excerpt|truncatechars:130 }}</p>
+    <div class="flex flex-wrap gap-3 text-xs text-c-white/50 mt-1">
+      <span class="flex items-center gap-1"><i class="uil uil-clock"></i> {{ post.reading_time }} min</span>
+      <span class="flex items-center gap-1"><i class="uil uil-heart"></i> {{ post.like_count }}</span>
+      <span class="flex items-center gap-1"><i class="uil uil-comment"></i> {{ post.comment_count }}</span>
+      <span class="flex items-center gap-1"><i class="uil uil-eye"></i> {{ post.views_count }}</span>
+    </div>
+    <div class="post__author mt-1">
+      <div class="post__author-avatar">
+        {% if post.author.avatar %}
+          <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}">
+        {% else %}
+          <div class="avatar-placeholder"></div>
+        {% endif %}
+      </div>
+      <div>
+        <p class="text-c-white text-sm font-medium">{{ post.author.full_name }}</p>
+        <small class="text-c-white/40 text-xs">{{ post.created_at|date:"M d, Y" }}</small>
+        <small class="post__time-ago text-xs">&nbsp;{{ post.created_at|timesince }} ago</small>
+      </div>
+    </div>
+  </div>
+</article>

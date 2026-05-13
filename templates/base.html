@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Free Space{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  tailwind.config = {
+    corePlugins: { container: false },
+    theme: {
+      extend: {
+        colors: {
+          primary: '#7c85ef',
+          'c-bg': '#0f0f3e',
+          'c-card': '#1e1e66',
+          'c-card-dk': '#2d2b7c',
+          'c-white': '#f2f2fe',
+          danger: '#da0f3f',
+          'danger-light': 'rgba(218,15,63,0.15)',
+          success: '#00c476',
+          'success-light': 'rgba(0,196,118,0.15)',
+        },
+        fontFamily: {
+          sans: ['Montserrat', 'sans-serif'],
+        },
+      }
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/enhance.css' %}">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+{% include "partials/_navbar.html" %}
+
+{% if messages %}
+  <div class="toast-stack" id="toastStack">
+    {% for message in messages %}
+      {% if message.tags == 'error' %}
+        <div class="toast toast--error" role="alert">
+          <i class="uil uil-times-circle toast__icon"></i>
+          <p class="toast__msg">{{ message }}</p>
+          <button class="toast__close" aria-label="Dismiss"><i class="uil uil-multiply"></i></button>
+        </div>
+      {% else %}
+        <div class="toast toast--success" role="alert">
+          <i class="uil uil-check-circle toast__icon"></i>
+          <p class="toast__msg">{{ message }}</p>
+          <button class="toast__close" aria-label="Dismiss"><i class="uil uil-multiply"></i></button>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+
+<main class="flex-1">
+{% block content %}{% endblock %}
+</main>
+
+{% include "partials/_footer.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

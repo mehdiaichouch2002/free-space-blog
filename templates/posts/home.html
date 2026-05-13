@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home — Free Space{% endblock %}
+
+{% block content %}
+{% if featured %}
+<div class="swiper mySwiper mt-[4.5rem]">
+  <div class="swiper-wrapper">
+    {% for post in featured %}
+    <div class="swiper-slide">
+      <section class="featured bg-c-card py-10 md:py-16">
+        <div class="container grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div class="post__thumbnail">
+            {% if post.featured_image %}
+              <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+            {% else %}
+              <div class="h-64 bg-c-card-dk flex items-center justify-center text-6xl text-c-white/30">
+                <i class="uil uil-image-slash"></i>
+              </div>
+            {% endif %}
+          </div>
+          <div class="post__info flex flex-col gap-3">
+            {% if post.category %}
+              <a href="{% url 'posts:category' post.category.slug %}" class="category__button self-start">{{ post.category.name }}</a>
+            {% endif %}
+            <h2 class="text-c-white"><a href="{% url 'posts:detail' post.slug %}" class="hover:text-primary transition-colors">{{ post.title }}</a></h2>
+            <p class="text-c-white/60 leading-relaxed">{{ post.excerpt }}</p>
+            <div class="flex flex-wrap gap-4 text-sm text-c-white/50">
+              <span class="flex items-center gap-1"><i class="uil uil-clock"></i> {{ post.reading_time }} min read</span>
+              <span class="flex items-center gap-1"><i class="uil uil-heart"></i> {{ post.like_count }}</span>
+              <span class="flex items-center gap-1"><i class="uil uil-eye"></i> {{ post.views_count }}</span>
+            </div>
+            <div class="post__author">
+              <div class="post__author-avatar">
+                {% if post.author.avatar %}<img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}">
+                {% else %}<div class="avatar-placeholder"></div>{% endif %}
+              </div>
+              <div>
+                <p class="text-c-white text-sm font-medium">{{ post.author.full_name }}</p>
+                <small class="text-c-white/40 text-xs">{{ post.created_at|date:"M d, Y - H:i" }}</small>
+                <small class="post__time-ago text-xs">&nbsp;{{ post.created_at|timesince }} ago</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="swiper-button-next next"></div>
+  <div class="swiper-button-prev prev"></div>
+  <div class="swiper-pagination"></div>
+</div>
+{% endif %}
+
+<section class="posts {% if not featured %}mt-28{% else %}mt-12{% endif %}">
+  <div class="container">
+    <div class="posts__container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      {% for post in posts %}
+        {% include "components/_post_card.html" with post=post only %}
+      {% endfor %}
+    </div>
+  </div>
+  <div id="spinner" class="container text-center py-4">
+    <div class="loader text-c-white/50">Loading…</div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

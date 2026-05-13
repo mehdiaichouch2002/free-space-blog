@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Register — Free Space{% endblock %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center px-4 py-24">
+  <div class="w-full max-w-md">
+    <div class="auth-card">
+
+      <div class="auth-logo"><i class="uil uil-user-plus"></i></div>
+      <h2 class="text-c-white text-2xl font-bold text-center mb-1">Create Account</h2>
+      <p class="text-c-white/50 text-sm text-center mb-6">Join the Free Space community</p>
+
+      {% if form.errors %}
+        <div class="alert__message error mb-4">
+          {% for field in form %}{% for error in field.errors %}<p>{{ error }}</p>{% endfor %}{% endfor %}
+        </div>
+      {% endif %}
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="form__control">
+            <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">First Name</label>
+            <input type="text" name="first_name" placeholder="First name" required>
+          </div>
+          <div class="form__control">
+            <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">Last Name</label>
+            <input type="text" name="last_name" placeholder="Last name" required>
+          </div>
+        </div>
+
+        <div class="form__control">
+          <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">Username</label>
+          <div class="input-wrap">
+            <i class="uil uil-at input-icon"></i>
+            <input type="text" name="username" placeholder="Choose a username" required>
+          </div>
+        </div>
+
+        <div class="form__control">
+          <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">Email</label>
+          <div class="input-wrap">
+            <i class="uil uil-envelope input-icon"></i>
+            <input type="email" name="email" placeholder="Your email address" required>
+          </div>
+        </div>
+
+        <div class="form__control">
+          <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">Password</label>
+          <div class="input-wrap">
+            <i class="uil uil-lock input-icon"></i>
+            <input type="password" name="password1" placeholder="Create a password" required>
+          </div>
+        </div>
+
+        <div class="form__control">
+          <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">Confirm Password</label>
+          <div class="input-wrap">
+            <i class="uil uil-lock-alt input-icon"></i>
+            <input type="password" name="password2" placeholder="Confirm your password" required>
+          </div>
+        </div>
+
+        <div class="form__control">
+          <label class="text-c-white/70 text-xs font-semibold uppercase tracking-wider">Avatar <span class="text-c-white/30 normal-case font-normal">(optional)</span></label>
+          <input type="file" name="avatar" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn mt-2" style="width:100%;justify-content:center;display:flex;">
+          <i class="uil uil-user-plus mr-2"></i> Create Account
+        </button>
+      </form>
+
+      <hr class="form-divider">
+      <p class="text-center text-c-white/50 text-sm">
+        Already have an account?
+        <a href="{% url 'users:login' %}" class="text-primary font-semibold hover:underline">Sign in</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% load static %}
+<footer class="bg-c-card mt-16 pt-10 shadow-inner">
+  <div class="flex flex-col items-center gap-2 pb-6">
+    <div class="flex items-center gap-2 font-bold text-xl">
+      <span class="w-9 h-9 bg-c-bg rounded-lg flex items-center justify-center text-primary"><i class="uil uil-rocket"></i></span>
+      <span class="text-c-white">Free<span class="bg-c-white text-c-bg px-1.5 rounded ml-0.5">Space</span></span>
+    </div>
+    <p class="text-c-white/50 text-sm">Sharing ideas, one post at a time.</p>
+    <div class="flex items-center gap-4 mt-3">
+      <a href="https://twitter.com/MehdiAichouch1" target="_blank" aria-label="Twitter" class="w-9 h-9 bg-c-bg rounded-full flex items-center justify-center hover:bg-c-white hover:text-c-bg transition-all"><i class="uil uil-twitter"></i></a>
+      <a href="https://wa.me/qr/VK6CY6KNISZ5N1" target="_blank" aria-label="WhatsApp" class="w-9 h-9 bg-c-bg rounded-full flex items-center justify-center hover:bg-c-white hover:text-c-bg transition-all"><i class="uil uil-whatsapp"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=100086933492693" target="_blank" aria-label="Facebook" class="w-9 h-9 bg-c-bg rounded-full flex items-center justify-center hover:bg-c-white hover:text-c-bg transition-all"><i class="uil uil-facebook-f"></i></a>
+      <a href="https://www.instagram.com/mehdy.xv/" target="_blank" aria-label="Instagram" class="w-9 h-9 bg-c-bg rounded-full flex items-center justify-center hover:bg-c-white hover:text-c-bg transition-all"><i class="uil uil-instagram-alt"></i></a>
+      <a href="https://www.linkedin.com/in/mehdi-aichouch-694a45253/" target="_blank" aria-label="LinkedIn" class="w-9 h-9 bg-c-bg rounded-full flex items-center justify-center hover:bg-c-white hover:text-c-bg transition-all"><i class="uil uil-linkedin"></i></a>
+    </div>
+  </div>
+  <div class="container grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-t border-c-bg">
+    <article>
+      <h4 class="text-c-white font-semibold mb-3">Categories</h4>
+      <ul class="space-y-2">
+        {% for cat in footer_categories %}
+          <li><a href="{% url 'posts:category' cat.slug %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">{{ cat.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </article>
+    <article>
+      <h4 class="text-c-white font-semibold mb-3">Support</h4>
+      <ul class="space-y-2">
+        <li><a href="{% url 'posts:contact' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Online Support</a></li>
+        <li><a href="{% url 'posts:contact' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Emails</a></li>
+        <li><a href="{% url 'posts:contact' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Social Support</a></li>
+      </ul>
+    </article>
+    <article>
+      <h4 class="text-c-white font-semibold mb-3">Blog</h4>
+      <ul class="space-y-2">
+        <li><a href="{% url 'posts:blog' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Recent</a></li>
+        <li><a href="{% url 'posts:blog' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Popular</a></li>
+        <li><a href="{% url 'posts:blog' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Categories</a></li>
+      </ul>
+    </article>
+    <article>
+      <h4 class="text-c-white font-semibold mb-3">Permalinks</h4>
+      <ul class="space-y-2">
+        <li><a href="{% url 'posts:home' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Home</a></li>
+        <li><a href="{% url 'posts:blog' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Blog</a></li>
+        <li><a href="{% url 'posts:about' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">About</a></li>
+        <li><a href="{% url 'posts:services' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Services</a></li>
+        <li><a href="{% url 'posts:contact' %}" class="text-c-white/60 hover:text-primary hover:tracking-wide transition-all text-sm">Contact</a></li>
+      </ul>
+    </article>
+  </div>
+  <div class="text-center py-4 border-t border-c-bg text-c-white/50 text-sm">Copyright &copy; {% now "Y" %} FREE SPACE — Built with Django</div>
+</footer>

@@ -1,0 +1,33 @@
+{% load static %}
+<nav>
+  <div class="container flex items-center justify-between h-full">
+    <a href="{% url 'posts:home' %}" class="flex items-center gap-2 font-bold text-xl tracking-tight">
+      <span class="w-9 h-9 bg-c-bg rounded-lg flex items-center justify-center text-primary flex-shrink-0"><i class="uil uil-rocket"></i></span>
+      <span class="text-c-white">Free<span class="bg-c-white text-c-bg px-1.5 rounded ml-0.5">Space</span></span>
+    </a>
+    <ul class="nav__items items-center gap-8">
+      <li><a href="{% url 'posts:blog' %}">Blog</a></li>
+      <li><a href="{% url 'posts:about' %}">About</a></li>
+      <li><a href="{% url 'posts:services' %}">Services</a></li>
+      <li><a href="{% url 'posts:contact' %}">Contact</a></li>
+      {% if user.is_authenticated %}
+        <li class="nav__profile">
+          <div class="avatar">
+            {% if user.avatar %}<img src="{{ user.avatar.url }}" alt="{{ user.username }}">
+            {% else %}<div class="avatar-placeholder"></div>{% endif %}
+          </div>
+          <ul>
+            <li><a href="{% url 'users:profile' user.username %}"><i class="uil uil-user"></i> Profile</a></li>
+            <li><a href="{% url 'posts:create' %}"><i class="uil uil-edit"></i> New Post</a></li>
+            {% if user.is_staff %}<li><a href="{% url 'admin:index' %}"><i class="uil uil-dashboard"></i> Dashboard</a></li>{% endif %}
+            <li><a href="{% url 'users:logout' %}"><i class="uil uil-sign-out-alt"></i> Logout</a></li>
+          </ul>
+        </li>
+      {% else %}
+        <li><a href="{% url 'users:login' %}" class="btn sm">Sign In</a></li>
+      {% endif %}
+    </ul>
+    <button id="open__nav-btn" class="text-c-white text-2xl p-2"><i class="uil uil-bars"></i></button>
+    <button id="close__nav-btn" class="text-c-white text-2xl p-2"><i class="uil uil-multiply"></i></button>
+  </div>
+</nav>

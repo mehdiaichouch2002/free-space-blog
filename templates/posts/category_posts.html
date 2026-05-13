@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ category.name }} — Free Space{% endblock %}
+
+{% block content %}
+<section class="mt-[4.5rem] bg-c-card py-16 text-center">
+  <div class="container">
+    <h1 class="text-3xl md:text-4xl font-bold text-c-white">{{ category.name }}</h1>
+    {% if category.description %}<p class="text-c-white/60 mt-2 max-w-xl mx-auto">{{ category.description }}</p>{% endif %}
+  </div>
+</section>
+
+<section class="posts mt-10">
+  <div class="container">
+    <div class="posts__container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      {% for post in posts %}
+        {% include "components/_post_card.html" with post=post only %}
+      {% empty %}
+        <div class="col-span-3 empty__page"><h2>No posts in this category yet.</h2></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

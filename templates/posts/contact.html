@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Contact — Free Space{% endblock %}
+
+{% block content %}
+<section class="mt-20 py-16 px-4">
+  <div class="container max-w-2xl mx-auto">
+
+    <div class="text-center mb-10">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-primary text-3xl mx-auto mb-4" style="background:rgba(124,133,239,.15)">
+        <i class="uil uil-envelope-alt"></i>
+      </div>
+      <h2 class="text-c-white text-3xl font-bold heading-accent mx-auto" style="width:fit-content">Contact Us</h2>
+      <p class="text-c-white/50 mt-6 leading-relaxed max-w-md mx-auto">
+        Got a question? We'd love to hear from you. Drop a message and we'll get back to you soon.
+      </p>
+    </div>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert__message {{ message.tags }} mb-6"><p>{{ message }}</p></div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="form-card">
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="field">
+          <label class="field__label">Your Name</label>
+          <div class="input-wrap">
+            <i class="uil uil-user input-icon"></i>
+            <input type="text" name="name" placeholder="John Doe" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label">Email Address</label>
+          <div class="input-wrap">
+            <i class="uil uil-envelope input-icon"></i>
+            <input type="email" name="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label">Message</label>
+          <div class="input-wrap">
+            <i class="uil uil-message input-icon top"></i>
+            <textarea name="message" rows="5" placeholder="Tell us what's on your mind…" required></textarea>
+          </div>
+        </div>
+
+        <div class="form__footer">
+          <button type="submit" class="btn">
+            <i class="uil uil-message mr-2"></i> Send Message
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
