@@ -597,17 +597,14 @@ input[type="file"]::file-selector-button:hover {
 textarea { resize: vertical; }
 
 /* ── Demo / test accounts widget on login ── */
-.demo-accounts {
-    margin-bottom: 0.25rem;
-}
 .demo-accounts__label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(242, 242, 254, 0.3);
-    margin-bottom: 0.6rem;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    color: rgba(242, 242, 254, 0.28);
+    margin-bottom: 0.75rem;
 }
 .demo-accounts__grid {
     display: flex;
@@ -618,39 +615,48 @@ textarea { resize: vertical; }
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0.55rem 0.4rem;
-    background: rgba(242, 242, 254, 0.04);
-    border: 1px solid rgba(242, 242, 254, 0.08);
-    border-radius: 0.6rem;
+    gap: 0.25rem;
+    padding: 0.6rem 0.5rem 0.5rem;
+    background: rgba(242, 242, 254, 0.03);
+    border: 1px solid rgba(242, 242, 254, 0.07);
+    border-radius: 0.75rem;
     cursor: pointer;
     transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
 }
 .demo-account:hover {
-    background: rgba(124, 133, 239, 0.1);
-    border-color: rgba(124, 133, 239, 0.3);
-    transform: translateY(-1px);
+    background: rgba(124, 133, 239, 0.08);
+    border-color: rgba(124, 133, 239, 0.25);
+    transform: translateY(-2px);
 }
 .demo-account--active {
-    background: rgba(124, 133, 239, 0.18) !important;
-    border-color: var(--color-primary) !important;
+    background: rgba(124, 133, 239, 0.14) !important;
+    border-color: rgba(124, 133, 239, 0.5) !important;
 }
-.demo-account__name {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: rgba(242, 242, 254, 0.85);
+.demo-account__icon {
+    font-size: 1.15rem;
+    color: rgba(242, 242, 254, 0.25);
+    line-height: 1;
 }
-.demo-account__badge {
-    font-size: 0.65rem;
-    font-weight: 600;
-    padding: 0.1rem 0.45rem;
-    border-radius: 2rem;
-    background: rgba(242, 242, 254, 0.08);
-    color: rgba(242, 242, 254, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-.demo-account__badge--admin {
-    background: rgba(124, 133, 239, 0.2);
+.demo-account__icon--admin {
     color: var(--color-primary);
+    opacity: 0.7;
+}
+.demo-account--active .demo-account__icon {
+    color: var(--color-primary);
+    opacity: 1;
+}
+.demo-account__user {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(242, 242, 254, 0.75);
+    letter-spacing: 0.01em;
+}
+.demo-account--active .demo-account__user {
+    color: rgba(242, 242, 254, 0.95);
+}
+.demo-account__pass {
+    font-size: 0.68rem;
+    color: rgba(242, 242, 254, 0.25);
+    font-family: monospace;
+    letter-spacing: 0.03em;
 }
