@@ -1,0 +1,331 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$E4ceRoZnKCosvYv3jJ92qw$nq5V6cLjsVvcTDxFnHLszf7wsFJ7k6l79V/ehzSfhQA=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Admin",
+      "last_name": "",
+      "email": "admin@freespace.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": [],
+      "bio": "Administrator of Free Space blog.",
+      "avatar": "",
+      "website": ""
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$1lOBGjjJ4YFP06wBOa4RnV$5VZb5eBi9fDYY9CCiKvb7kGLhjscmxb7knYgCFDseDQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "alice",
+      "first_name": "Alice",
+      "last_name": "Martin",
+      "email": "alice@freespace.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-02T00:00:00Z",
+      "groups": [],
+      "user_permissions": [],
+      "bio": "Passionnée de technologie et de voyages.",
+      "avatar": "",
+      "website": "https://alice.dev"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$1lOBGjjJ4YFP06wBOa4RnV$5VZb5eBi9fDYY9CCiKvb7kGLhjscmxb7knYgCFDseDQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "karim",
+      "first_name": "Karim",
+      "last_name": "Benali",
+      "email": "karim@freespace.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-03T00:00:00Z",
+      "groups": [],
+      "user_permissions": [],
+      "bio": "Développeur web et amateur de café.",
+      "avatar": "",
+      "website": ""
+    }
+  },
+
+  {
+    "model": "posts.category",
+    "pk": 1,
+    "fields": { "name": "Technologie", "slug": "technologie", "description": "Articles sur le développement web, l'IA et les nouvelles technologies." }
+  },
+  {
+    "model": "posts.category",
+    "pk": 2,
+    "fields": { "name": "Lifestyle", "slug": "lifestyle", "description": "Bien-être, voyages et vie quotidienne." }
+  },
+  {
+    "model": "posts.category",
+    "pk": 3,
+    "fields": { "name": "Science", "slug": "science", "description": "Découvertes scientifiques et recherches." }
+  },
+  {
+    "model": "posts.category",
+    "pk": 4,
+    "fields": { "name": "Tutoriels", "slug": "tutoriels", "description": "Guides pratiques et tutoriels pas à pas." }
+  },
+
+  {
+    "model": "posts.tag",
+    "pk": 1,
+    "fields": { "name": "Python", "slug": "python" }
+  },
+  {
+    "model": "posts.tag",
+    "pk": 2,
+    "fields": { "name": "Django", "slug": "django" }
+  },
+  {
+    "model": "posts.tag",
+    "pk": 3,
+    "fields": { "name": "Web", "slug": "web" }
+  },
+  {
+    "model": "posts.tag",
+    "pk": 4,
+    "fields": { "name": "MySQL", "slug": "mysql" }
+  },
+  {
+    "model": "posts.tag",
+    "pk": 5,
+    "fields": { "name": "IA", "slug": "ia" }
+  },
+
+  {
+    "model": "posts.post",
+    "pk": 1,
+    "fields": {
+      "author": 2,
+      "category": 1,
+      "tags": [2, 3],
+      "title": "Construire une application blog avec Django 6",
+      "slug": "construire-application-blog-django-6",
+      "excerpt": "Django 6 apporte de nombreuses améliorations. Découvrez comment construire une application blog complète étape par étape.",
+      "content": "Django 6 est sorti avec de nombreuses nouvelles fonctionnalités qui facilitent le développement web. Dans cet article, nous allons explorer comment construire une application blog complète avec Django 6 et MySQL.\n\nNous allons couvrir la création des modèles, des vues, des templates, et la gestion des médias. À la fin de ce tutoriel, vous aurez une application fonctionnelle avec un système d'authentification, un CRUD complet pour les articles, et un système de commentaires imbriqués.\n\nCommençons par installer Django et configurer notre environnement de développement.",
+      "featured_image": "",
+      "status": "published",
+      "is_featured": true,
+      "views_count": 142,
+      "created_at": "2024-02-10T09:00:00Z",
+      "updated_at": "2024-02-10T09:00:00Z"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 2,
+    "fields": {
+      "author": 3,
+      "category": 1,
+      "tags": [1, 2, 4],
+      "title": "MySQL vs PostgreSQL : lequel choisir pour votre projet ?",
+      "slug": "mysql-vs-postgresql-lequel-choisir",
+      "excerpt": "Comparaison détaillée entre MySQL et PostgreSQL pour vous aider à choisir la base de données adaptée à votre projet.",
+      "content": "Choisir entre MySQL et PostgreSQL est une décision importante pour tout développeur. Les deux systèmes de gestion de bases de données relationnelles ont leurs forces et leurs faiblesses.\n\nMySQL est connu pour sa simplicité et ses performances sur les opérations de lecture. Il est largement utilisé dans les applications web et bénéficie d'un excellent support de la communauté.\n\nPostgreSQL, de son côté, offre des fonctionnalités avancées comme les types de données JSON natifs, les requêtes récursives, et une conformité SQL plus stricte.\n\nDans cet article, nous comparons les deux solutions sur les critères de performance, de fonctionnalités, et de facilité d'utilisation.",
+      "featured_image": "",
+      "status": "published",
+      "is_featured": true,
+      "views_count": 98,
+      "created_at": "2024-02-15T10:30:00Z",
+      "updated_at": "2024-02-15T10:30:00Z"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 3,
+    "fields": {
+      "author": 2,
+      "category": 2,
+      "tags": [3],
+      "title": "5 conseils pour améliorer votre productivité en télétravail",
+      "slug": "5-conseils-productivite-teletravail",
+      "excerpt": "Le télétravail offre flexibilité mais peut nuire à la concentration. Voici 5 conseils concrets pour rester productif.",
+      "content": "Le télétravail est devenu la norme pour de nombreux professionnels. Si cette flexibilité présente de nombreux avantages, elle vient aussi avec des défis liés à la concentration et à la gestion du temps.\n\n1. Créez un espace de travail dédié — Avoir un coin bureau séparé de votre espace de vie aide à entrer dans le mode travail.\n\n2. Respectez des horaires fixes — Commencer et terminer à des heures régulières maintient une routine saine.\n\n3. Faites des pauses régulières — La technique Pomodoro (25 min de travail, 5 min de pause) est très efficace.\n\n4. Limitez les distractions numériques — Désactivez les notifications non essentielles pendant les plages de travail intensif.\n\n5. Communiquez proactivement — En télétravail, surcommuiquer vaut mieux que laisser des zones d'ombre.",
+      "featured_image": "",
+      "status": "published",
+      "is_featured": false,
+      "views_count": 67,
+      "created_at": "2024-02-20T14:00:00Z",
+      "updated_at": "2024-02-20T14:00:00Z"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 4,
+    "fields": {
+      "author": 3,
+      "category": 3,
+      "tags": [5],
+      "title": "L'intelligence artificielle va-t-elle remplacer les développeurs ?",
+      "slug": "intelligence-artificielle-remplacer-developpeurs",
+      "excerpt": "Avec l'essor des outils IA comme GitHub Copilot et ChatGPT, beaucoup s'interrogent sur l'avenir du métier de développeur.",
+      "content": "L'intelligence artificielle progresse à une vitesse fulgurante et certains outils commencent à être capables de générer du code fonctionnel. GitHub Copilot, ChatGPT, et d'autres modèles de langage transforment la façon dont les développeurs travaillent.\n\nMais cela signifie-t-il que les développeurs humains vont être remplacés ? La réponse courte est non — du moins pas dans un avenir proche.\n\nLes outils d'IA sont excellents pour les tâches répétitives, la génération de boilerplate, et la suggestion de code. Mais ils manquent encore de la capacité à comprendre le contexte métier, à prendre des décisions d'architecture complexes, et à résoudre des problèmes inédits.\n\nLe développeur du futur sera celui qui sait tirer parti de ces outils tout en apportant la créativité et le jugement humain irremplaçables.",
+      "featured_image": "",
+      "status": "published",
+      "is_featured": true,
+      "views_count": 210,
+      "created_at": "2024-03-01T08:00:00Z",
+      "updated_at": "2024-03-01T08:00:00Z"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 5,
+    "fields": {
+      "author": 2,
+      "category": 4,
+      "tags": [1, 3],
+      "title": "Déployer une application Django sur un VPS",
+      "slug": "deployer-application-django-vps",
+      "excerpt": "Guide complet pour déployer votre application Django sur un VPS avec Nginx, Gunicorn et SSL.",
+      "content": "Déployer une application Django en production nécessite plusieurs étapes. Dans ce tutoriel, nous allons voir comment configurer un VPS Ubuntu avec Nginx comme reverse proxy, Gunicorn comme serveur WSGI, et Let's Encrypt pour le SSL.\n\nPrérequis : un VPS sous Ubuntu 22.04, un nom de domaine pointant vers votre serveur.\n\nÉtape 1 : Mettre à jour le serveur et installer les dépendances.\nÉtape 2 : Cloner votre projet et créer l'environnement virtuel.\nÉtape 3 : Configurer Gunicorn comme service systemd.\nÉtape 4 : Configurer Nginx comme reverse proxy.\nÉtape 5 : Obtenir un certificat SSL avec Certbot.",
+      "featured_image": "",
+      "status": "published",
+      "is_featured": false,
+      "views_count": 55,
+      "created_at": "2024-03-10T11:00:00Z",
+      "updated_at": "2024-03-10T11:00:00Z"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 6,
+    "fields": {
+      "author": 3,
+      "category": 1,
+      "tags": [2, 3],
+      "title": "Brouillon : Optimiser les requêtes Django avec select_related",
+      "slug": "optimiser-requetes-django-select-related",
+      "excerpt": "Les requêtes N+1 sont un problème courant en Django. Apprenez à les éviter avec select_related et prefetch_related.",
+      "content": "Les problèmes de performance liés aux requêtes N+1 sont très fréquents dans les applications Django. Cet article explique comment les détecter et les corriger.",
+      "featured_image": "",
+      "status": "draft",
+      "is_featured": false,
+      "views_count": 0,
+      "created_at": "2024-03-15T09:00:00Z",
+      "updated_at": "2024-03-15T09:00:00Z"
+    }
+  },
+
+  {
+    "model": "comments.comment",
+    "pk": 1,
+    "fields": {
+      "post": 1,
+      "author": 3,
+      "parent": null,
+      "content": "Super article ! Django 6 est vraiment une belle évolution. J'ai déjà commencé à migrer mes projets.",
+      "is_approved": true,
+      "created_at": "2024-02-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "comments.comment",
+    "pk": 2,
+    "fields": {
+      "post": 1,
+      "author": 2,
+      "parent": 1,
+      "content": "Merci Karim ! La migration est assez simple, la documentation officielle est très claire.",
+      "is_approved": true,
+      "created_at": "2024-02-11T11:30:00Z"
+    }
+  },
+  {
+    "model": "comments.comment",
+    "pk": 3,
+    "fields": {
+      "post": 1,
+      "author": 1,
+      "parent": null,
+      "content": "Excellent travail Alice. N'hésite pas à faire un article sur les nouveaux middleware de Django 6.",
+      "is_approved": true,
+      "created_at": "2024-02-12T08:00:00Z"
+    }
+  },
+  {
+    "model": "comments.comment",
+    "pk": 4,
+    "fields": {
+      "post": 2,
+      "author": 2,
+      "parent": null,
+      "content": "Très bonne comparaison. Pour les projets avec beaucoup de JSON, PostgreSQL est clairement meilleur.",
+      "is_approved": true,
+      "created_at": "2024-02-16T09:00:00Z"
+    }
+  },
+  {
+    "model": "comments.comment",
+    "pk": 5,
+    "fields": {
+      "post": 4,
+      "author": 2,
+      "parent": null,
+      "content": "Article très intéressant. Je pense que l'IA va plutôt augmenter notre productivité que nous remplacer.",
+      "is_approved": true,
+      "created_at": "2024-03-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "comments.comment",
+    "pk": 6,
+    "fields": {
+      "post": 4,
+      "author": 3,
+      "parent": 5,
+      "content": "Exactement ! C'est un outil, pas un remplaçant. Comme la calculatrice n'a pas remplacé les mathématiciens.",
+      "is_approved": true,
+      "created_at": "2024-03-02T14:00:00Z"
+    }
+  },
+
+  {
+    "model": "likes.like",
+    "pk": 1,
+    "fields": { "user": 2, "post": 2, "created_at": "2024-02-16T10:00:00Z" }
+  },
+  {
+    "model": "likes.like",
+    "pk": 2,
+    "fields": { "user": 3, "post": 1, "created_at": "2024-02-11T12:00:00Z" }
+  },
+  {
+    "model": "likes.like",
+    "pk": 3,
+    "fields": { "user": 1, "post": 1, "created_at": "2024-02-12T09:00:00Z" }
+  },
+  {
+    "model": "likes.like",
+    "pk": 4,
+    "fields": { "user": 1, "post": 4, "created_at": "2024-03-02T09:00:00Z" }
+  },
+  {
+    "model": "likes.like",
+    "pk": 5,
+    "fields": { "user": 2, "post": 4, "created_at": "2024-03-02T11:00:00Z" }
+  },
+  {
+    "model": "likes.like",
+    "pk": 6,
+    "fields": { "user": 3, "post": 4, "created_at": "2024-03-03T08:00:00Z" }
+  }
+]

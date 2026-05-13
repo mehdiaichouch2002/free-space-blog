@@ -14,28 +14,22 @@ Plateforme de blog complète construite avec **Django 6**, **MySQL** et **Tailwi
 
 ---
 
-## Prérequis
-
-- Python 3.10 ou supérieur
-- MySQL 8.0 ou supérieur
-- pip
-
----
-
-## Installation
+## Installation rapide
 
 ### 1. Cloner le dépôt
 
 ```bash
-git clone <url-du-repo>
-cd <nom-du-repo>/blog
+git clone https://github.com/mehdiaichouch2002/free-space-blog.git
+cd free-space-blog
 ```
 
 ### 2. Créer et activer un environnement virtuel
 
 ```bash
 python -m venv venv
+```
 
+```bash
 # Linux / macOS
 source venv/bin/activate
 
@@ -43,7 +37,7 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
-### 3. Installer les dépendances Python
+### 3. Installer les dépendances
 
 ```bash
 pip install -r requirements.txt
@@ -51,7 +45,7 @@ pip install -r requirements.txt
 
 ### 4. Créer la base de données MySQL
 
-Connectez-vous à MySQL puis exécutez :
+Connectez-vous à MySQL et exécutez :
 
 ```sql
 CREATE DATABASE blog_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -59,7 +53,7 @@ CREATE DATABASE blog_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 ### 5. Configurer les accès à la base de données
 
-Ouvrez `config/settings.py` et modifiez le bloc `DATABASES` avec vos informations :
+Ouvrez `config/settings.py` et modifiez le bloc `DATABASES` :
 
 ```python
 DATABASES = {
@@ -68,7 +62,7 @@ DATABASES = {
         'NAME': 'blog_db',
         'USER': 'root',        # ← votre utilisateur MySQL
         'PASSWORD': '',        # ← votre mot de passe MySQL
-        'HOST': 'localhost',   # ← '127.0.0.1' si localhost ne fonctionne pas
+        'HOST': 'localhost',   # ← ou '127.0.0.1'
         'PORT': '3306',
         'OPTIONS': {'charset': 'utf8mb4'},
     }
@@ -81,21 +75,30 @@ DATABASES = {
 python manage.py migrate
 ```
 
-### 7. Créer un super-utilisateur (accès admin)
+### 7. Charger les données d'exemple
 
 ```bash
-python manage.py createsuperuser
+python manage.py loaddata fixtures/sample_data.json
 ```
 
-### 8. Lancer le serveur de développement
+Cela crée automatiquement :
+
+| Compte | Mot de passe | Rôle |
+|--------|-------------|------|
+| `admin` | `admin123` | Super-utilisateur (accès `/admin/`) |
+| `alice` | `user123` | Utilisateur normal |
+| `karim` | `user123` | Utilisateur normal |
+
+Et charge : 4 catégories, 5 tags, 5 articles publiés + 1 brouillon, 6 commentaires, 6 likes.
+
+### 8. Lancer le serveur
 
 ```bash
 python manage.py runserver
 ```
 
-Ouvrez votre navigateur sur **http://127.0.0.1:8000**
-
-L'interface d'administration est disponible sur **http://127.0.0.1:8000/admin**
+Ouvrez **http://127.0.0.1:8000** dans votre navigateur.  
+L'interface d'administration est sur **http://127.0.0.1:8000/admin**.
 
 ---
 
@@ -104,27 +107,15 @@ L'interface d'administration est disponible sur **http://127.0.0.1:8000/admin**
 ```
 blog/
 ├── config/              # Paramètres, URLs racine, WSGI/ASGI
-│   ├── settings.py
-│   └── urls.py
 ├── apps/
 │   ├── users/           # Modèle User personnalisé (avatar, bio, site web)
 │   ├── posts/           # Modèles Post, Category, Tag + vues principales
 │   ├── comments/        # Modèle Comment (réponses imbriquées)
 │   └── likes/           # Endpoint toggle-like (JSON)
+├── fixtures/
+│   └── sample_data.json # Données d'exemple prêtes à charger
 ├── templates/           # Templates HTML (niveau projet)
-│   ├── base.html
-│   ├── components/      # _field.html, _post_card.html
-│   ├── partials/        # _navbar.html, _footer.html
-│   ├── posts/
-│   ├── users/
-│   └── registration/
-└── static/
-    ├── css/
-    │   ├── style.css    # Variables CSS et styles de base
-    │   └── enhance.css  # Couche UI améliorée
-    └── js/
-        ├── main.js      # Nav, toasts, toggle commentaires (toutes pages)
-        └── index.js     # Slider Swiper + défilement infini (page d'accueil)
+└── static/              # CSS et JavaScript
 ```
 
 ---
@@ -145,13 +136,6 @@ blog/
 | `/users/profile/<username>/` | Profil public |
 | `/users/profile/edit/` | Modifier son profil *(connexion requise)* |
 | `/admin/` | Interface d'administration Django |
-
----
-
-## Administration
-
-Accédez à `/admin/` avec le compte super-utilisateur pour gérer les posts, catégories, tags, commentaires et utilisateurs.  
-Pour qu'un post apparaisse dans le slider de la page d'accueil, cochez **"Is featured"** depuis l'admin.
 
 ---
 
