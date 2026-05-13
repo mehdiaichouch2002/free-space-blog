@@ -595,3 +595,62 @@ input[type="file"]::file-selector-button:hover {
 
 /* ── Textarea resize handle ── */
 textarea { resize: vertical; }
+
+/* ── Demo / test accounts widget on login ── */
+.demo-accounts {
+    margin-bottom: 0.25rem;
+}
+.demo-accounts__label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(242, 242, 254, 0.3);
+    margin-bottom: 0.6rem;
+    text-align: center;
+}
+.demo-accounts__grid {
+    display: flex;
+    gap: 0.5rem;
+}
+.demo-account {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.55rem 0.4rem;
+    background: rgba(242, 242, 254, 0.04);
+    border: 1px solid rgba(242, 242, 254, 0.08);
+    border-radius: 0.6rem;
+    cursor: pointer;
+    transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+.demo-account:hover {
+    background: rgba(124, 133, 239, 0.1);
+    border-color: rgba(124, 133, 239, 0.3);
+    transform: translateY(-1px);
+}
+.demo-account--active {
+    background: rgba(124, 133, 239, 0.18) !important;
+    border-color: var(--color-primary) !important;
+}
+.demo-account__name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(242, 242, 254, 0.85);
+}
+.demo-account__badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.1rem 0.45rem;
+    border-radius: 2rem;
+    background: rgba(242, 242, 254, 0.08);
+    color: rgba(242, 242, 254, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.demo-account__badge--admin {
+    background: rgba(124, 133, 239, 0.2);
+    color: var(--color-primary);
+}

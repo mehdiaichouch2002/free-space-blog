@@ -39,6 +39,26 @@
       </form>
 
       <hr class="form-divider">
+
+      <div class="demo-accounts">
+        <p class="demo-accounts__label">Test accounts</p>
+        <div class="demo-accounts__grid">
+          <button type="button" class="demo-account" data-user="admin" data-pass="admin123">
+            <span class="demo-account__name">admin</span>
+            <span class="demo-account__badge demo-account__badge--admin">Admin</span>
+          </button>
+          <button type="button" class="demo-account" data-user="alice" data-pass="user123">
+            <span class="demo-account__name">alice</span>
+            <span class="demo-account__badge">User</span>
+          </button>
+          <button type="button" class="demo-account" data-user="karim" data-pass="user123">
+            <span class="demo-account__name">karim</span>
+            <span class="demo-account__badge">User</span>
+          </button>
+        </div>
+      </div>
+
+      <hr class="form-divider">
       <p class="text-center text-c-white/50 text-sm">
         Don't have an account?
         <a href="{% url 'users:register' %}" class="text-primary font-semibold hover:underline">Register here</a>
@@ -46,4 +66,17 @@
     </div>
   </div>
 </section>
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.demo-account').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelector('input[name="username"]').value = btn.dataset.user;
+    document.querySelector('input[name="password"]').value = btn.dataset.pass;
+    document.querySelectorAll('.demo-account').forEach(function(b) { b.classList.remove('demo-account--active'); });
+    btn.classList.add('demo-account--active');
+  });
+});
+</script>
+{% endblock %}
 {% endblock %}
